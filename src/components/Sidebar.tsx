@@ -47,7 +47,13 @@ const priceRange: PriceRange = {
     currency: "kr",
 };
 
-const Sidebar = () => {
+type SidebarProps = {
+    category: string;
+    maxPrice: number;
+    availability: string;
+};
+
+const Sidebar = ({ category, maxPrice, availability }: SidebarProps) => {
     return (
             <aside className="lg:col-span-3 lg:sticky lg:top-20 self-start">
                 <div className="border border-slate-200 rounded-[1.25rem] bg-slate-50/50 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-xl hover:border-blue-400 p-5">
@@ -71,7 +77,7 @@ const Sidebar = () => {
                                         type="checkbox"
                                         value={item.value}
                                         className="category-filter h-[1.125rem] w-[1.125rem] rounded-[0.375rem] border border-slate-200 accent-blue-600 cursor-pointer"
-                                        defaultChecked={item.value === "all"}
+                                        defaultChecked={item.value === category}
                                     />
                                     <span className="flex-1 text-sm text-slate-700 font-medium">
                                         {item.label}{" "}
@@ -97,7 +103,7 @@ const Sidebar = () => {
                             type="range"
                             min={priceRange.min}
                             max={priceRange.max}
-                            defaultValue={priceRange.default}
+                            defaultValue={maxPrice}
                             className="w-full accent-blue-500"
                             aria-label="Price range"
                         />
@@ -114,7 +120,8 @@ const Sidebar = () => {
                             <label key={item.value} className="flex items-center gap-3 cursor-pointer select-none">
                                 <input type="checkbox"
                                        value={item.value}
-                                       className="h-[1.125rem] w-[1.125rem] rounded-[0.375rem] border border-slate-200 accent-blue-600 cursor-pointer"/>
+                                       className="h-[1.125rem] w-[1.125rem] rounded-[0.375rem] border border-slate-200 accent-blue-600 cursor-pointer"
+                                       defaultChecked={item.value === availability}/>
                                 <span className="flex-1 text-sm text-slate-700">{item.label}</span>
                             </label>
                             ))}

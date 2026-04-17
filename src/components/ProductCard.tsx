@@ -1,4 +1,4 @@
-type Product = {
+export type Product = {
     id: number;
     name: string;
     category: string;
@@ -9,18 +9,8 @@ type Product = {
     imageUrl: string;
 };
 
-const ProductCard = () => {
-     const product: Product = {
-        id: 1,
-        name: "Technical Shell Jacket",
-        category: "Outerwear",
-        price: 890,
-        discountPrice: 1450,
-        rating: 4.9,
-        stockStatus: "In Stock • Ships in 2 days",
-        imageUrl: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&q=80&w=800"
-     };
-
+const ProductCard = ({ product }: { product: Product }) => {
+     
     return (
         <div>
             <article
@@ -38,8 +28,8 @@ const ProductCard = () => {
                                 className="h-12 w-12 rounded-full bg-white text-slate-900 shadow-xl flex items-center justify-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500 hover:bg-blue-600 hover:text-white"
                                 aria-label="Quick View">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round">
+                                 fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                 strokeLinejoin="round">
                                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
                                 <circle cx="12" cy="12" r="3"/>
                             </svg>
@@ -48,8 +38,8 @@ const ProductCard = () => {
                                 className="h-12 w-12 rounded-full bg-white text-slate-900 shadow-xl flex items-center justify-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75 hover:bg-blue-600 hover:text-white"
                                 aria-label="Add to cart">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                 stroke-linejoin="round">
+                                 fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                                 strokeLinejoin="round">
                                 <path d="M5 12h14"/>
                                 <path d="M12 5v14"/>
                             </svg>
@@ -65,8 +55,8 @@ const ProductCard = () => {
                             className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200/50 bg-white/70 text-slate-600 backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-rose-500 hover:shadow-lg group/heart"
                             aria-label="Add to favorites" title="Favorite">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                             stroke-linejoin="round"
+                             fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                             strokeLinejoin="round"
                              className="transition-colors group-hover/heart:fill-rose-500 group-hover/heart:stroke-rose-500">
                             <path
                                 d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
@@ -84,7 +74,7 @@ const ProductCard = () => {
                                 <path
                                     d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                             </svg>
-                            <span className="text-[10px] font-bold text-slate-400">4.9</span>
+                            <span className="text-[10px] font-bold text-slate-400">{product.rating}</span>
                         </div>
                     </div>
                     <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">

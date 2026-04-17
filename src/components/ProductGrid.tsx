@@ -1,6 +1,26 @@
-import ProductCard from "./ProductCard.tsx";
+import ProductCard, { type Product } from "./ProductCard.tsx";
 
-const ProductGrid = () => {
+type ProductGridProps = {
+    category: string;
+    maxPrice: number;
+    availability: string;
+};
+
+const products: Product[] = [
+    { id: 1, name: "Technical Shell Jacket", category: "Outerwear", price: 890, discountPrice: 1450, rating: 4.9, stockStatus: "In Stock • Ships in 2 days", imageUrl: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&q=80&w=800" },
+    { id: 2, name: "Trail Running Shoes", category: "Footwear", price: 620, discountPrice: 980, rating: 4.7, stockStatus: "In Stock • Ships in 3 days", imageUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800" },
+    { id: 3, name: "Merino Wool Scarf", category: "Accessories", price: 180, discountPrice: 290, rating: 4.8, stockStatus: "Low Stock • Ships in 1 day", imageUrl: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&q=80&w=800" },
+    { id: 4, name: "Insulated Parka", category: "Outerwear", price: 1100, discountPrice: 1750, rating: 4.6, stockStatus: "In Stock • Ships in 2 days", imageUrl: "https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&q=80&w=800" },
+    { id: 5, name: "Leather Crossbody Bag", category: "Accessories", price: 340, discountPrice: 520, rating: 4.9, stockStatus: "In Stock • Ships in 2 days", imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&q=80&w=800" },
+    { id: 6, name: "Waterproof Hiking Boots", category: "Footwear", price: 780, discountPrice: 1200, rating: 4.8, stockStatus: "In Stock • Ships in 4 days", imageUrl: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=800" },
+];
+
+const ProductGrid = ({ category, maxPrice, availability }: ProductGridProps) => {
+    const filtered = products
+        .filter(p => category === "all" || p.category === category)
+        .filter(p => p.price <= maxPrice)
+        .filter(p => availability === "in-stock" ? p.stockStatus.toLowerCase().includes("in stock") :
+                     availability === "on-sale" ? p.discountPrice !== undefined : true);
         return (
             <section className="lg:col-span-9">
                 <div className="border border-slate-200 rounded-[1.25rem] bg-slate-50/50 backdrop-blur-sm shadow-sm p-5">
@@ -22,12 +42,9 @@ const ProductGrid = () => {
                     <div className="mt-5 h-px bg-slate-100"></div>
 
                     <div id="product-grid" className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
+                        {filtered.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
                     </div>
 
                     <nav className="mt-8 flex items-center justify-center gap-2" aria-label="Pagination">

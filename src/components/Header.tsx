@@ -10,7 +10,7 @@ const navItems: NavItem[] = [
     { lable: "Sale", href: "#" },
 ];
 
-const Header = () => {
+const Header = ({cartCount}: {cartCount: number}) => {
     return (
 <>
             <header className="sticky top-0 z-40 border-b border-blue-700/30 bg-blue-600 shadow-lg shadow-blue-900/10">
@@ -79,7 +79,7 @@ const Header = () => {
                                 </svg>
                                 {/* Cart Count Badge */}
                                 <span id="cart-count"
-                                      className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white shadow-sm hidden">0</span>
+                                      className={`absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white shadow-sm ${cartCount > 0 ? "" : "hidden"}`}>{cartCount}</span>
                             </button>
 
                             {/* User */}
