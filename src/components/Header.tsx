@@ -6,7 +6,6 @@ export type HeaderProps = {
     cartItemCount: number;
     onSearch: (query: string) => void;
 };
-
 export const defaultHeaderProps: HeaderProps = {
     title: "LITE.SHOP",
     nav: [
