@@ -1,4 +1,4 @@
-export type Product = {
+export type ProductItem = {
     id: number;
     name: string;
     category: string;
@@ -9,8 +9,15 @@ export type Product = {
     imageUrl: string;
 };
 
-const ProductCard = ({ product }: { product: Product }) => {
-     
+interface ProductCardProps {
+    product: ProductItem;
+    onRegisterClick?: () => void;
+    onRemoveFromCart?: () => void;
+}
+
+const ProductCard = ({ product, onRegisterClick, onRemoveFromCart }: ProductCardProps) => {
+
+    {/*We can distructure the component to take out product behind all the components*/}
     return (
         <div>
             <article
@@ -84,11 +91,18 @@ const ProductCard = ({ product }: { product: Product }) => {
                     <div className="flex items-center justify-between gap-3 pt-3">
                         <div className="flex flex-col">
                             <span
-                                className="text-[10px] text-slate-400 line-through font-medium leading-none">{product.price}</span>
-                            <span className="text-lg font-black text-slate-900 tracking-tight">{product.discountPrice}</span>
+                                className="text-[10px] text-slate-400 line-through font-medium leading-none">{product.discountPrice}</span>
+                            <span className="text-lg font-black text-slate-900 tracking-tight">{product.price}</span>
                         </div>
 
                         <button type="button"
+                                onClick={onRemoveFromCart}
+                                className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-slate-200 px-4 text-xs font-bold text-slate-900 transition-all duration-300 hover:bg-red-100 hover:text-red-600 active:scale-95"
+                                aria-label="Remove from cart">
+                            Remove
+                        </button>
+                        <button type="button"
+                                onClick={onRegisterClick}
                                 className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 text-xs font-bold text-white transition-all duration-300 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-200 active:scale-95 group/btn"
                                 aria-label="Add to cart">
                             Add to cart

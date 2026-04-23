@@ -1,12 +1,15 @@
-import ProductCard, { type Product } from "./ProductCard.tsx";
+import ProductCard, { type ProductItem } from "./ProductCard.tsx";
 
 type ProductGridProps = {
     category: string;
     maxPrice: number;
     availability: string;
+    searchQuery: string;
+    onAddToCart: () => void;
+    onRemoveFromCart: () => void;
 };
 
-const products: Product[] = [
+const products: ProductItem[] = [
     { id: 1, name: "Technical Shell Jacket", category: "Outerwear", price: 890, discountPrice: 1450, rating: 4.9, stockStatus: "In Stock • Ships in 2 days", imageUrl: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&q=80&w=800" },
     { id: 2, name: "Trail Running Shoes", category: "Footwear", price: 620, discountPrice: 980, rating: 4.7, stockStatus: "In Stock • Ships in 3 days", imageUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800" },
     { id: 3, name: "Merino Wool Scarf", category: "Accessories", price: 180, discountPrice: 290, rating: 4.8, stockStatus: "Low Stock • Ships in 1 day", imageUrl: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&q=80&w=800" },
@@ -15,12 +18,13 @@ const products: Product[] = [
     { id: 6, name: "Waterproof Hiking Boots", category: "Footwear", price: 780, discountPrice: 1200, rating: 4.8, stockStatus: "In Stock • Ships in 4 days", imageUrl: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=800" },
 ];
 
-const ProductGrid = ({ category, maxPrice, availability }: ProductGridProps) => {
+const ProductGrid = ({ category, maxPrice, availability, searchQuery, onAddToCart, onRemoveFromCart }: ProductGridProps) => {
     const filtered = products
         .filter(p => category === "all" || p.category === category)
         .filter(p => p.price <= maxPrice)
         .filter(p => availability === "in-stock" ? p.stockStatus.toLowerCase().includes("in stock") :
-                     availability === "on-sale" ? p.discountPrice !== undefined : true);
+                     availability === "on-sale" ? p.discountPrice !== undefined : true)
+        .filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()));
         return (
             <section className="lg:col-span-9">
                 <div className="border border-slate-200 rounded-[1.25rem] bg-slate-50/50 backdrop-blur-sm shadow-sm p-5">
@@ -43,7 +47,7 @@ const ProductGrid = ({ category, maxPrice, availability }: ProductGridProps) => 
 
                     <div id="product-grid" className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {filtered.map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product.id} product={product} onRegisterClick={onAddToCart} onRemoveFromCart={onRemoveFromCart} />
                         ))}
                     </div>
 
